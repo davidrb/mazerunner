@@ -1,0 +1,5 @@
+mazerunner
+.build/
+*.swp
+*.o
+*.sconsign.dblite
