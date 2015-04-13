@@ -1,5 +1,8 @@
 # vim: set filetype=python
 
 env = Environment();
-env.Append(CCFLAGS=['-Wall', '-Werror', '-Wextra']);
-bin = env.Program("../mazerunner", Glob("*.c"));
+
+env.Append(CCFLAGS=['-m32', '-Wall', '-Werror', '-Wextra']);
+env.Append(LINKFLAGS=['-m32']);
+
+bin = env.Program("../mazerunner", Glob("*.c") + ["display.o"], LIBS='curses');
