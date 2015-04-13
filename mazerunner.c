@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include "display.h"
+#include "gui.h"
 
 int main() {
+    getchar();
     return 0;
 }
