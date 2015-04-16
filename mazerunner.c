@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 #include "maze.h"
+#include "parse.h"
 
 #include <assert.h>
 
@@ -11,9 +12,9 @@ void updateView( int x, int y, int dir ) {
 }
 
 int main() {
-    Maze *maze = new_maze("maze.dat");
-    if (!maze) {
-	fprintf(stderr, "error opening maze file\n");
+    Maze maze;
+    if (parse_maze("maze.dat", &maze) != 0) {
+	fprintf(stderr, "error parsing maze file\n");
 	return 1;
     }
 
@@ -25,10 +26,10 @@ int main() {
     for (int r = 0; r < MAXR; r++) {
 	for (int c = 0; c < MAXC; c++) {
 	    put_walls(r, c, 
-		    get_wall(maze, c, r, North),
-		    get_wall(maze, c, r, East),
-		    get_wall(maze, c, r, West),
-		    get_wall(maze, c, r, South));
+		    get_wall(&maze, c, r, North),
+		    get_wall(&maze, c, r, East),
+		    get_wall(&maze, c, r, West),
+		    get_wall(&maze, c, r, South));
 	    }
     }
 
@@ -38,7 +39,5 @@ int main() {
 
     clear_screen();
     
-    delete_maze(maze);
-
     return 0;
 }

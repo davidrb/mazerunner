@@ -4,6 +4,6 @@
 #include <stdbool.h>
 #include "maze.h"
 
-int parseFile(const char *, Maze *);
+int parse_maze(const char *, Maze *);
 
 #endif

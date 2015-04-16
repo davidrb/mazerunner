@@ -1,8 +1,6 @@
 #include "parse.h"
 #include "maze.h"
 
-#include "maze_def.h"
-
 #include <stdio.h>
 #include <assert.h>
 
@@ -60,7 +58,7 @@ int readVWalls(bool *vwalls, FILE *file) {
     return 0;
 }
 
-int parseFile(const char* path, Maze *maze) {
+int parse_maze(const char* path, Maze *maze) {
     FILE *file = fopen(path, "r");
     if (!file) return 1;
 

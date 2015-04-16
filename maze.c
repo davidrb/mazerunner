@@ -5,25 +5,7 @@
 #include "maze_def.h"
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <assert.h>
-
-const int Rows = MAXR;
-const int Cols = MAXC;
-
-Maze *new_maze(const char* path) {
-    Maze *maze = malloc(sizeof(Maze));
-
-    if( parseFile(path, maze) == 0)
-	return maze;
-
-    free(maze);
-    return NULL;
-}
-
-void delete_maze(Maze *maze) {
-    if(maze) free(maze);
-}
 
 bool get_wall(Maze *maze, int x, int y, Direction dir) {
     assert(maze);
