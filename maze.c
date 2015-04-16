@@ -6,29 +6,30 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 const int Rows = MAXR;
 const int Cols = MAXC;
 
-#include <assert.h>
-
 Maze *new_maze(const char* path) {
     Maze *maze = malloc(sizeof(Maze));
-    assert(maze);
 
-    if( parseFile(path, maze) == 0) {
+    if( parseFile(path, maze) == 0)
 	return maze;
-    } else {
-	free(maze);
-	return NULL;
-    }
+
+    free(maze);
+    return NULL;
 }
 
 void delete_maze(Maze *maze) {
-    free(maze);
+    if(maze) free(maze);
 }
 
 bool get_wall(Maze *maze, int x, int y, Direction dir) {
+    assert(maze);
+    assert(0 <= x && x < Cols);
+    assert(0 <= y && y < Rows);
+
     switch(dir) {
 	case North:
 	    return maze->hwalls[Rows-y-1][x];
@@ -38,6 +39,7 @@ bool get_wall(Maze *maze, int x, int y, Direction dir) {
 	    return maze->vwalls[Rows-y-1][x];
 	case East:
 	    return maze->vwalls[Rows-y-1][x+1];
+	default:
+	    assert(0);
     }
-    assert(0);
 }

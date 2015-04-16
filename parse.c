@@ -4,8 +4,11 @@
 #include "maze_def.h"
 
 #include <stdio.h>
+#include <assert.h>
 
 int readHWalls(bool *hwalls, FILE *file) {
+    assert(file);
+
     for (int c = 0; c < Cols; c++) {
 
 	if(fgetc(file) != '+')
@@ -31,6 +34,8 @@ int readHWalls(bool *hwalls, FILE *file) {
 }
 
 int readVWalls(bool *vwalls, FILE *file) {
+    assert(file);
+
     if (fgetc(file) != '|')
 	return 1;
 
@@ -57,6 +62,7 @@ int readVWalls(bool *vwalls, FILE *file) {
 
 int parseFile(const char* path, Maze *maze) {
     FILE *file = fopen(path, "r");
+    if (!file) return 1;
 
     for (int r = 0; r < Rows; r++) {
 	if ( readHWalls(maze->hwalls[r], file) != 0 ||
@@ -66,8 +72,7 @@ int parseFile(const char* path, Maze *maze) {
 	     goto fail;
     }
 
-    if ( 
-	 readHWalls(maze->hwalls[Rows], file) != 0 ) {
+    if ( readHWalls(maze->hwalls[Rows], file) != 0 ) {
 	goto fail;
     }
     

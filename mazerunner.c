@@ -1,21 +1,21 @@
 #include "display.h"
 
 #include <stdio.h>
-#include <stdbool.h>
 
-#include "parse.h"
 #include "maze.h"
+
+#include <assert.h>
 
 void updateView( int x, int y, int dir ) {
     show_mouse(x, y, dir);
 }
 
-#include <string.h>
-#include <assert.h>
-
 int main() {
     Maze *maze = new_maze("maze.dat");
-    assert(maze);
+    if (!maze) {
+	fprintf(stderr, "error opening maze file\n");
+	return 1;
+    }
 
     int mouseX = 0, mouseY = 0,
 	mouseDir = NORTH;
@@ -38,7 +38,6 @@ int main() {
 
     clear_screen();
     
-    if (maze)
     delete_maze(maze);
 
     return 0;
