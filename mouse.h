@@ -15,15 +15,17 @@ typedef struct {
 
 Mouse create_mouse();
 
-int getX(Mouse *);
-int getY(Mouse *);
-
-Direction getDir(Mouse *);
 
 void move_mouse(Mouse *, Maze *);
 
 void turn_left(Mouse *);
 void turn_right(Mouse *);
+
+
+Direction getDir(Mouse *);
+
+int getX(Mouse *);
+int getY(Mouse *);
 
 bool visited(Mouse *, int x, int y);
 
