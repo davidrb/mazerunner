@@ -2,8 +2,6 @@
 #include "display.h"
 #include "parse.h"
 
-#include "maze_def.h"
-
 #include <stdio.h>
 #include <assert.h>
 

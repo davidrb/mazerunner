@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 typedef enum { Rows = 16, Cols = 16 } MazeLimits;
-typedef enum { North = 0, East, South, West } Direction;
+typedef enum { North = 0, East=1, South=2, West=3 } Direction;
 
 typedef struct {
     bool vwalls[Rows][Cols+1];

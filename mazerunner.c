@@ -1,43 +1,40 @@
-#include "display.h"
-
 #include <stdio.h>
 
 #include "maze.h"
 #include "parse.h"
-
-#include <assert.h>
-
-void updateView( int x, int y, int dir ) {
-    show_mouse(x, y, dir);
-}
+#include "view.h"
+#include "mouse.h"
 
 int main() {
     Maze maze;
-    if (parse_maze("maze.dat", &maze) != 0) {
-	fprintf(stderr, "error parsing maze file\n");
+
+    if (0 != parse_maze("maze.dat", &maze)) {
+	fprintf(stderr, "error opening maze file\n");
 	return 1;
     }
 
-    int mouseX = 0, mouseY = 0,
-	mouseDir = NORTH;
+    Mouse mouse = create_mouse();
 
-    init_display(5);
+    View view = create_view(5);
+    view.update(&maze, &mouse);
 
-    for (int r = 0; r < MAXR; r++) {
-	for (int c = 0; c < MAXC; c++) {
-	    put_walls(r, c, 
-		    get_wall(&maze, c, r, North),
-		    get_wall(&maze, c, r, East),
-		    get_wall(&maze, c, r, West),
-		    get_wall(&maze, c, r, South));
-	    }
+    for( char c = getchar(); c != 'q'; c = getchar()) {
+	if (c == 'w')
+	    move_mouse(&mouse, &maze);
+	else if (c == 'a')
+	    turn_left(&mouse);
+	else if (c == 'd')
+	    turn_right(&mouse);
+	else if (c == 'r') {
+	    mouse = create_mouse();
+	    view.destroy();
+	    view = create_view(5);
+	}
+
+	view.update(&maze, &mouse);
     }
 
-    updateView(mouseX, mouseY, mouseDir);
+    view.destroy();
 
-    getchar();
-
-    clear_screen();
-    
     return 0;
 }
