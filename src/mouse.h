@@ -15,7 +15,6 @@ typedef struct {
 
 Mouse create_mouse();
 
-
 void move_mouse(Mouse *, Maze *);
 
 void turn_left(Mouse *);
