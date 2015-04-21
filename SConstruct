@@ -1,16 +1,19 @@
 # vim: set filetype=python
 
+import os
+
 env = Environment()
-
-env.Append( CCFLAGS=["-m32", "-std=c99", "-Wall", "-Werror", "-pedantic"] );
-env.Append( CPPPATH=["include"] );
 env.Append( LINKFLAGS="-m32" );
+env.Append( CPPPATH=["include"] );
 
-Export('env')
+env['ENV']['TERM'] = os.environ['TERM']
 
-tests_env = Environment();
-tests_env.Append( CPPFLAGS=["-m32", "-std=c++14", "-Wall", "-Werror", "-pedantic"] );
+c_env = env.Clone();
+c_env.Append( CCFLAGS=["-m32", "-std=c99", "-Wall", "-Werror", "-pedantic"] );
 
-Export("tests_env");
+cpp_env = env.Clone();
+cpp_env.Append( CPPFLAGS=["-m32", "-std=c++14", "-Wall", "-Werror", "-pedantic"] );
+
+Export("cpp_env c_env");
 
 SConscript('SConscript', variant_dir='.build', duplicate=0);
