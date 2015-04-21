@@ -1,6 +1,6 @@
 # vim: set filetype=python
 
-Import("cpp_env c_env")
+Import("env cpp_env c_env")
 
 main_file = c_env.File("src/mazerunner.c");
 main_obj = c_env.Object("src/mazerunner.c");
@@ -23,6 +23,6 @@ run_tests = Command( target="run_tests",
 		     source=tests,
 		     action=".build/tests/tests");
 
-AlwaysBuild(run_tests);
-Default(run_tests);
+env.AlwaysBuild(run_tests);
+env.Default(run_tests);
 
