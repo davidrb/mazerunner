@@ -1,13 +1,10 @@
 # vim: set filetype=python
 
-import os
-
 env = Environment()
+
 env.Append( LINKFLAGS="-m32" );
 env.Append( CPPPATH=["include"] );
 env.Append( LIBPATH="lib" );
-
-env['ENV']['TERM'] = os.environ['TERM']
 
 c_env = env.Clone();
 c_env.Append( CCFLAGS=["-m32", "-std=c99", "-Wall", "-Werror", "-pedantic"] );

@@ -21,8 +21,7 @@ tests = cpp_env.Program(
 
 run_tests = Command( target="run_tests",
 		     source=tests,
-		     action=".build/tests/tests");
+		     action="TERM=xterm && export TERM && .build/tests/tests");
 
 env.AlwaysBuild(run_tests);
 env.Default(run_tests);
-
