@@ -12,7 +12,7 @@ c_env = env.Clone();
 c_env.Append( CCFLAGS=["-m32", "-std=c99", "-Wall", "-Werror", "-pedantic"] );
 
 cpp_env = env.Clone();
-cpp_env.Append( CPPFLAGS=["-m32", "-std=c++14", "-Wall", "-Werror", "-pedantic"] );
+cpp_env.Append( CPPFLAGS=["-m32", "-std=c++1y", "-Wall", "-Werror", "-pedantic"] );
 cpp_env.Append( LIBS=["gmock"] );
 
 Export("cpp_env c_env");
