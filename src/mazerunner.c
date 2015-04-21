@@ -3,6 +3,7 @@
 #include "maze.h"
 #include "parse.h"
 #include "view.h"
+
 #include "mouse.h"
 
 int main() {

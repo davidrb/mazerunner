@@ -6,7 +6,7 @@
 #include <assert.h>
 
 Maze create_maze() {
-    Maze maze = { {{0}}, {{0}} };
+    Maze maze = { {{false}}, {{false}} };
 
     for (int c = 0; c < Cols; c++) {
 	maze.hwalls[0][c] = maze.hwalls[Rows][c] = true;

@@ -5,13 +5,7 @@
 
 #include "maze.h"
 
-typedef struct {
-    int x, y;
-    Direction dir;
-    bool crashed;
-    bool visited[Rows][Cols];
-    int cells, unique_cells;
-} Mouse;
+typedef struct Mouse Mouse;
 
 Mouse create_mouse();
 
@@ -31,5 +25,13 @@ int get_cells( Mouse * );
 int get_unique_cells( Mouse * );
 
 bool did_crash(Mouse *);
+
+struct Mouse {
+    int x, y;
+    Direction dir;
+    bool crashed;
+    bool visited[Rows][Cols];
+    int cells, unique_cells;
+};
 
 #endif

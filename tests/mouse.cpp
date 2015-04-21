@@ -6,13 +6,12 @@ extern "C" {
 
 using namespace testing;
 
-/*
-TEST(mouse, mouse) {
+TEST(mouse, move_mouse) {
     Mouse mouse = create_mouse();
-    Maze maze = 
+    Maze maze = create_maze();
 
-    move(
+    turn_right( &mouse );
+    move_mouse( &mouse, &maze );
 
-    ASSERT_THAT( getX(&mouse), Eq(0) );
+    ASSERT_THAT( getX(&mouse), Eq(1) );
 }
-*/

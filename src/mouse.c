@@ -1,5 +1,5 @@
+#define MOUSE_DEF
 #include "mouse.h"
-
 #include "maze.h"
 
 Mouse create_mouse() {

@@ -8,27 +8,18 @@ int readHWalls(bool *hwalls, FILE *file) {
     assert(file);
 
     for (int c = 0; c < Cols; c++) {
-
 	if(fgetc(file) != '+')
 	    return 1;
 	
 	char w = fgetc(file);
 
-	if (w != fgetc(file) || w != fgetc(file))
+	if (w != fgetc(file) || w != fgetc(file) || (w != ' ' && w != '-'))
 	    return 1;
     
-	if (w == ' ' || w == '-') {
-	    hwalls[c] = (w == '-');
-	} else {
-	    return 1;
-	}
+	hwalls[c] = (w == '-');
     }
 
-    if (fgetc(file) != '+') {
-	return 1;
-    }
-
-    return 0;
+    return fgetc(file) != '+';
 }
 
 int readVWalls(bool *vwalls, FILE *file) {
@@ -39,23 +30,20 @@ int readVWalls(bool *vwalls, FILE *file) {
 
     vwalls[0] = true;
 
-    for (int c = 1; c < Cols+1; c++) {
+    for (int c = 1; c < Cols; c++) {
 	if (fgetc(file) != ' ' || fgetc(file) != ' ' || fgetc(file) != ' ')
 	    return 1;
 
 	char w = fgetc(file);
 
-	if (w == ' ' || w == '|') {
-	    vwalls[c] = (w == '|');
-	} else {
-	    return 1;
-	}
+	if (w != ' ' && w != '|') return 1;
 
-	if( c+1 == Cols+1 && w != '|' )
-	    return 1;
+	vwalls[c] = (w == '|');
     }
 
-    return 0;
+    vwalls[Cols] = true;
+
+    return (fgetc(file) == '|');
 }
 
 int parse_maze(const char* path, Maze *maze) {
@@ -63,27 +51,26 @@ int parse_maze(const char* path, Maze *maze) {
     if (!file) return 1;
 
     for (int r = 0; r < Rows; r++) {
-	if ( readHWalls(maze->hwalls[r], file) != 0 ||
-	    fgetc(file) != '\n' ||
-	     readVWalls(maze->vwalls[r], file) != 0 ||
-	     fgetc(file) != '\n') 
-	     goto fail;
+	if ( readHWalls(maze->hwalls[r], file) != 0 || fgetc(file) != '\n' ||
+	     readVWalls(maze->vwalls[r], file) != 0 || fgetc(file) != '\n') 
+
+	    fclose(file);
+	    return 1;
     }
 
     if ( readHWalls(maze->hwalls[Rows], file) != 0 ) {
-	goto fail;
+	fclose(file);
+	return 1;
     }
     
     for (int i = 0; i < Cols; i++) {
-	if ( maze->hwalls[0][i] == false ||
-	     maze->hwalls[Rows][i] == false )
-	    goto fail;
+	if ( !maze->hwalls[0][i] || !maze->hwalls[Rows][i] ) {
+	    fclose(file);
+	    return 1;
+	}
     }
 
     fclose(file);
     return 0;
-fail:
-    fclose(file);
-    return 1;
 }
 
