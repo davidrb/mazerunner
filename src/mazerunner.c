@@ -9,7 +9,7 @@ int main() {
     Maze maze;
 
     if (0 != parse_maze("maze.dat", &maze)) {
-	fprintf(stderr, "error opening maze file\n");
+	fprintf(stderr, "error parsing maze file\n");
 	return 1;
     }
 

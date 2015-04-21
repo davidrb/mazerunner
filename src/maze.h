@@ -11,8 +11,8 @@ typedef struct {
     bool hwalls[Rows+1][Cols];
 } Maze;
 
+Maze create_maze();
 int load_maze(Maze* maze, const char *);
-void delete_maze(Maze *);
 
 bool get_wall(Maze *, int x, int y, Direction);
 
