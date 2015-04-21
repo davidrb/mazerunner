@@ -2,7 +2,9 @@
 
 #include <iostream>
 
-int main() {
-    std::cout << "Hello, World!\n";
+int main(int argc, char *argv[]) {
+    ::testing::InitGoogleMock(&argc, argv);
+    return RUN_ALL_TESTS();
+
     return 0;
 }

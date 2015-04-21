@@ -17,7 +17,7 @@ test_objs = [cpp_env.Object(f) for f in Glob("tests/*.cpp")];
 tests = cpp_env.Program( 
 	"tests/tests", 
 	test_objs + objs + ["../lib/display.o"],
-	LIBS='curses');
+	LIBS=['curses', 'gmock', 'pthread']);
 
 run_tests = Command( target="run_tests",
 		     source=tests,
