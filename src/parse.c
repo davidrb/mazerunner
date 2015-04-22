@@ -21,23 +21,18 @@ void expectVWall( FILE *, jmp_buf );
 void expectThreeSpaces( FILE *, jmp_buf );
 
 bool parse_maze(const char* path, Maze *maze) {
-    jmp_buf buf;
     FILE *file = fopen(path, "r");
-    bool success = true;
-    int err;
+    jmp_buf buf;
 
-    if (!file) return false;
-
-    if ( (err = setjmp(buf)) == 0 ) {
+    if ( file && setjmp(buf) == 0 ) {
 	doAll( maze->hwalls, maze->vwalls, file, buf );
     } else {
-	success = false;
+	fclose(file);
+	return false;
     }
 
-    if(file) 
-	fclose(file);
-
-    return success;
+    fclose(file);
+    return true;
 }
 
 void doAll( HWalls hwalls, VWalls vwalls, FILE *file, jmp_buf buf ) {
@@ -114,7 +109,6 @@ bool readVWall(FILE *file, jmp_buf buf) {
 
     return w == '|';
 }
-
 
 void expectPost(FILE *file, jmp_buf buf) {
     if(fgetc(file) != '+')

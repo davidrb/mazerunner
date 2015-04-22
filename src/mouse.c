@@ -8,6 +8,8 @@ Mouse create_mouse() {
 	.dir = North,
 	.crashed = false,
 	.visited = {{false}},
+	.invincible = false,
+	.ghost = false,
 	.cells = 1,
 	.unique_cells = 1,
     };
@@ -37,14 +39,16 @@ Direction getDir(Mouse *m) {
     return m->dir;
 }
 
+#include <assert.h>
+
 void move_mouse(Mouse *mouse, Maze *maze) {
     if (did_crash(mouse)) return;
 
     Direction dir = getDir(mouse);
     int x = getX(mouse), y = getY(mouse);
 
-    if ( get_wall(maze, x, y, dir) ) {
-	mouse->crashed = true;
+    if ( get_wall(maze, x, y, dir) && !mouse->ghost ) {
+	mouse->crashed = !mouse->invincible;
     } else {
 	if(dir == North) y++;
 	else if(dir == South) y--;
@@ -52,15 +56,16 @@ void move_mouse(Mouse *mouse, Maze *maze) {
 	else if(dir == West) x--;
 
 	if (x < 0 || x >= Cols || y < 0 || y >= Rows) {
-	    mouse->crashed = true;
+	    mouse->crashed = !mouse->invincible && !mouse->ghost;
 	} else {
-	    mouse->x = x; mouse->y = y;
+	    mouse->cells++;
+	    mouse->x = x; 
+	    mouse->y = y;
 	}
     }
 
-    mouse->cells++;
     if(!visited(mouse, x, y)) {
-	mouse->visited[x][y] = true;
+	mouse->visited[mouse->x][mouse->y] = true;
 	mouse->unique_cells++;
     }
 }
@@ -71,6 +76,14 @@ void turn_right(Mouse *m) {
 
 void turn_left(Mouse *m) {
     m->dir = (m->dir + 3) % 4;
+}
+
+void set_invincible(Mouse *m, bool b) {
+    m->invincible = b;
+}
+
+void set_ghost(Mouse *m, bool b) {
+    m->ghost = b;
 }
 
 bool visited(Mouse *mouse, int x, int y) {

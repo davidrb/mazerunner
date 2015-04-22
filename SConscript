@@ -24,4 +24,4 @@ run_tests = Command( target="run_tests",
 		     action="TERM=xterm && export TERM && .build/tests/tests");
 
 env.AlwaysBuild(run_tests);
-env.Default(run_tests);
+env.Default([ bin, run_tests ]);

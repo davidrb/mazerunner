@@ -14,6 +14,9 @@ void move_mouse(Mouse *, Maze *);
 void turn_left(Mouse *);
 void turn_right(Mouse *);
 
+void set_invincible(Mouse *, bool);
+void set_ghost(Mouse *, bool);
+
 Direction getDir(Mouse *);
 
 int getX(Mouse *);
@@ -30,6 +33,7 @@ struct Mouse {
     int x, y;
     Direction dir;
     bool crashed;
+    bool invincible, ghost;
     bool visited[Rows][Cols];
     int cells, unique_cells;
 };
