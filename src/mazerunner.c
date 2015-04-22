@@ -8,15 +8,15 @@
 
 int main(int argc, char *argv[]) {
     Maze maze = create_maze();
+    Mouse mouse = create_mouse();
+    View view = create_view(5);
 
-    if (!parse_maze("maze.template", &maze)) {
+    if (!parse_maze(argc > 1 ? argv[1] : "maze.dat", &maze)) {
+	view.write_message("error parsing maze file\n");
 	fprintf(stderr, "error parsing maze file\n");
 	return 1;
     }
 
-    Mouse mouse = create_mouse();
-
-    View view = create_view(2);
     view.update(&maze, &mouse);
 
     for( char c = getchar(); c != 'q'; c = getchar()) {
