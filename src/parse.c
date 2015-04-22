@@ -47,12 +47,12 @@ void doAll( HWalls hwalls, VWalls vwalls, FILE *file, jmp_buf buf ) {
 }
 
 void doMiddle(HWalls hwalls, VWalls vwalls, FILE *file, jmp_buf buf) {
-    int r;
-    for (r = 1; r < Rows; r++) {
-	readVWalls(vwalls[r], file, buf);
+    readVWalls(vwalls[0], file, buf);
+
+    for (int r = 1; r < Rows; r++) {
 	readHWalls(hwalls[r], file, buf);
+	readVWalls(vwalls[r], file, buf);
     }
-    readVWalls( vwalls[r], file, buf );
 }
 
 void doTopOrBottom(bool *hwalls, FILE *file, jmp_buf buf) {
@@ -92,7 +92,7 @@ void readVWalls(bool *vwalls, FILE *file, jmp_buf buf) {
 
     expectThreeSpaces(file, buf);
     expectVWall(file, buf);
-    vwalls[Rows] = true;
+    vwalls[Cols] = true;
 
     expectNewLine(file, buf);
 }

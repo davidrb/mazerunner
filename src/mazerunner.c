@@ -9,10 +9,10 @@
 int main(int argc, char *argv[]) {
     Maze maze = create_maze();
     Mouse mouse = create_mouse();
-    View view = create_view(5);
+    View view = create_view(0);
 
     if (!parse_maze(argc > 1 ? argv[1] : "maze.dat", &maze)) {
-	view.write_message("error parsing maze file\n");
+	view.destroy();
 	fprintf(stderr, "error parsing maze file\n");
 	return 1;
     }
