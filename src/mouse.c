@@ -7,11 +7,12 @@ Mouse create_mouse() {
 	.x = 0, .y = 0,
 	.dir = North,
 	.crashed = false,
-	.visited = { {false} },
+	.visited = {{false}},
 	.cells = 1,
 	.unique_cells = 1,
     };
-    mouse.visited[0][0] = true;
+
+    mouse.visited[mouse.x][mouse.y] = true;
 
     return mouse;
 }

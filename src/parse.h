@@ -4,6 +4,6 @@
 #include <stdbool.h>
 #include "maze.h"
 
-int parse_maze(const char *, Maze *);
+bool parse_maze(const char *, Maze *);
 
 #endif

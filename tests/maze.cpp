@@ -11,15 +11,17 @@ bool check_boundaries(Maze *);
 
 TEST( maze, create_maze ) {
     Maze maze = create_maze();
-
     ASSERT_TRUE( check_boundaries(&maze) );
+}
+
+TEST( maze, check_bad_maze ) {
+    Maze maze = create_maze();
+    ASSERT_FALSE( parse_maze("badmaze.dat", &maze) );
 }
 
 TEST( maze, parse_boundaries ) {
     Maze maze = create_maze();
-
     parse_maze("maze.dat", &maze);
-
     ASSERT_TRUE(check_boundaries(&maze));
 }
 
