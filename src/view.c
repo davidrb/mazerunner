@@ -54,16 +54,11 @@ void update_lvl5(Maze *maze, Mouse *mouse) {
 View create_view( int level ) {
     View view;
 
-    init_display(level);
+    init_display(2);
+
     show_mouse(0, 0, NORTH);
 
-    if (level == 0) {
-	view.update = &update_lvl0;
-    } else if (level == 5) {
-	view.update = &update_lvl5;
-    } else {
-	assert(0);
-    }
+    view.update = &update_lvl5;
 
     view.destroy = &clear_screen;
 

@@ -9,7 +9,7 @@
 int main(int argc, char *argv[]) {
     Maze maze = create_maze();
 
-    if (!parse_maze("asdf.dat", &maze)) {
+    if (!parse_maze("maze.template", &maze)) {
 	fprintf(stderr, "error parsing maze file\n");
 	return 1;
     }
