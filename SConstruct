@@ -7,7 +7,8 @@ env.Append( CPPPATH=["include"] );
 env.Append( LIBPATH="lib" );
 
 c_env = env.Clone();
-c_env.Append( CCFLAGS=["-g", "-m32", "-std=c99", "-Wall", "-Werror", "-pedantic"] );
+c_env.Append( CCFLAGS=["-Wextra", "-g", "-m32", "-std=c99"]);
+c_env.Append( CCFLAGS=["-Wall", "-Werror", "-pedantic"] );
 
 cpp_env = env.Clone();
 cpp_env.Append( CPPFLAGS=["-g", "-m32", "-std=c++1y", "-Wall", "-Werror", "-pedantic"] );

@@ -20,6 +20,8 @@ bool update_controller(Controller* this) {
     } else if (c == 'g') {
 	set_ghost(this->mouse, getchar() == '1');
 	this->view->write_message("set ghost");
+    } else if (c == ' ') {
+	
     } else if (c == 'q' || c == 4) {
 	return false;
     }

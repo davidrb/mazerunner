@@ -39,8 +39,6 @@ Direction getDir(Mouse *m) {
     return m->dir;
 }
 
-#include <assert.h>
-
 void move_mouse(Mouse *mouse, Maze *maze) {
     if (did_crash(mouse)) return;
 
@@ -57,6 +55,8 @@ void move_mouse(Mouse *mouse, Maze *maze) {
 
 	if (x < 0 || x >= Cols || y < 0 || y >= Rows) {
 	    mouse->crashed = !mouse->invincible && !mouse->ghost;
+	    x = getX(mouse);
+	    y = getY(mouse);
 	} else {
 	    mouse->cells++;
 	    mouse->x = x; 
@@ -65,7 +65,7 @@ void move_mouse(Mouse *mouse, Maze *maze) {
     }
 
     if(!visited(mouse, x, y)) {
-	mouse->visited[mouse->x][mouse->y] = true;
+	mouse->visited[x][y] = true;
 	mouse->unique_cells++;
     }
 }
