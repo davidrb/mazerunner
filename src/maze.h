@@ -6,8 +6,11 @@
 typedef enum { Rows = 16, Cols = 16 } MazeLimits;
 typedef enum { North = 0, East=1, South=2, West=3 } Direction;
 
-typedef bool HWalls[Rows+1][Cols];
-typedef bool VWalls[Rows][Cols+1];
+typedef bool HLine[Cols];
+typedef bool VLine[Cols+1];
+
+typedef HLine HWalls[Rows+1];
+typedef VLine VWalls[Rows];
 
 typedef struct {
     VWalls vwalls;

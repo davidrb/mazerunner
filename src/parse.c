@@ -5,62 +5,66 @@
 #include <assert.h>
 #include <setjmp.h>
 
-void readHWalls(bool *, FILE *, jmp_buf);
-void readVWalls(bool *, FILE *, jmp_buf);
+void doAll( HWalls, VWalls, FILE*, jmp_buf);
+void doTopOrBottom( HLine, FILE*, jmp_buf );
+void doMiddle( HWalls, VWalls, FILE*, jmp_buf );
 
-bool readHWall(FILE *file, jmp_buf buf);
-bool readVWall(FILE *, jmp_buf);
+void readHWalls( HLine, FILE *, jmp_buf );
+void readVWalls( VLine, FILE *, jmp_buf );
 
-void doTopOrBottom(bool *hwalls, FILE *, jmp_buf buf);
-void doMiddle(bool hwalls[Rows+1][Cols], 
-	      bool vwalls[Rows][Cols+1], 
-	      FILE *file, jmp_buf buf);
+bool readHWall( FILE *, jmp_buf );
+bool readVWall( FILE *, jmp_buf );
 
-void expectNewLine(FILE *, jmp_buf);
-void expectPost(FILE *file, jmp_buf buf);
-void expectVWall(FILE *file, jmp_buf buf);
-void expectThreeSpaces(FILE*, jmp_buf);
+void expectNewLine( FILE *, jmp_buf );
+void expectPost( FILE *, jmp_buf );
+void expectVWall( FILE *, jmp_buf );
+void expectThreeSpaces( FILE *, jmp_buf );
 
 bool parse_maze(const char* path, Maze *maze) {
     jmp_buf buf;
     FILE *file = fopen(path, "r");
+    bool success = true;
+    int err;
 
-    if ( file && !setjmp(buf) ) {
+    if (!file) return false;
 
-	doTopOrBottom( maze->hwalls[0], file, buf);
-
-
-
-	doTopOrBottom( maze->hwalls[0], file, buf);
-
-	fclose(file);
-	return true;
+    if ( (err = setjmp(buf)) == 0 ) {
+	doAll( maze->hwalls, maze->vwalls, file, buf );
     } else {
-	fclose(file);
-	return false;
+	success = false;
     }
+
+    if(file) 
+	fclose(file);
+
+    return success;
 }
 
+void doAll( HWalls hwalls, VWalls vwalls, FILE *file, jmp_buf buf ) {
+    doTopOrBottom( hwalls[0], file, buf);
+    doMiddle( hwalls, vwalls, file, buf);
+    doTopOrBottom( hwalls[Rows], file, buf);
+}
 
-void doMiddle(bool hwalls[Rows+1][Cols], 
-	      bool vwalls[Rows][Cols+1], 
-	      FILE *file, jmp_buf buf) 
-{
-    for (int r = 1; r < Rows; r++) {
-	readHWalls(hwalls[r], file, buf);
-	expectNewLine(file, buf);
-
+void doMiddle(HWalls hwalls, VWalls vwalls, FILE *file, jmp_buf buf) {
+    int r;
+    for (r = 1; r < Rows; r++) {
 	readVWalls(vwalls[r], file, buf);
-	expectNewLine(file, buf);
+	readHWalls(hwalls[r], file, buf);
     }
+    readVWalls( vwalls[r], file, buf );
 }
 
 void doTopOrBottom(bool *hwalls, FILE *file, jmp_buf buf) {
     for (int i = 0; i < Cols; i++) {
+	expectPost(file, buf);
+
 	if ( !readHWall(file, buf) )
 	    longjmp(buf, 1);
 	hwalls[i] = true;
     }
+    expectPost(file, buf);
+    fgetc(file);
 }
 
 void readHWalls(bool *hwalls, FILE *file, jmp_buf buf) {
@@ -72,6 +76,7 @@ void readHWalls(bool *hwalls, FILE *file, jmp_buf buf) {
     }
 
     expectPost(file, buf);
+    expectNewLine(file, buf);
 }
 
 void readVWalls(bool *vwalls, FILE *file, jmp_buf buf) {
@@ -85,8 +90,11 @@ void readVWalls(bool *vwalls, FILE *file, jmp_buf buf) {
 	vwalls[c] = readVWall(file, buf);
     }
 
+    expectThreeSpaces(file, buf);
     expectVWall(file, buf);
-    vwalls[Cols] = true;
+    vwalls[Rows] = true;
+
+    expectNewLine(file, buf);
 }
 
 bool readHWall(FILE *file, jmp_buf buf) {

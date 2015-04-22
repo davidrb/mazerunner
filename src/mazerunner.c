@@ -6,17 +6,17 @@
 
 #include "mouse.h"
 
-int main() {
-    Maze maze;
+int main(int argc, char *argv[]) {
+    Maze maze = create_maze();
 
-    if (0 != parse_maze("maze.dat", &maze)) {
+    if (!parse_maze("asdf.dat", &maze)) {
 	fprintf(stderr, "error parsing maze file\n");
 	return 1;
     }
 
     Mouse mouse = create_mouse();
 
-    View view = create_view(5);
+    View view = create_view(2);
     view.update(&maze, &mouse);
 
     for( char c = getchar(); c != 'q'; c = getchar()) {
@@ -29,7 +29,7 @@ int main() {
 	else if (c == 'r') {
 	    mouse = create_mouse();
 	    view.destroy();
-	    view = create_view(5);
+	    view = create_view(2);
 	}
 
 	view.update(&maze, &mouse);
