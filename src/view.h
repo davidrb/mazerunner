@@ -10,6 +10,6 @@ typedef struct {
     void (*destroy)();
 } View;
 
-View create_view(int level);
+View create_view( int level);
 
 #endif

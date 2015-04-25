@@ -11,7 +11,7 @@ struct Controller {
     View* view;
 };
 
-bool update_controller(struct Controller *);
+bool do_command(struct Controller *, char);
 typedef struct Controller Controller;
 
 Controller create_controller(View *view, Maze *, Mouse *);

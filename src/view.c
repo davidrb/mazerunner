@@ -60,8 +60,6 @@ View create_view( int level ) {
 
     init_display(level);
 
-    show_mouse(0, 0, NORTH);
-
     if (level == 5)
 	view.update = update_lvl5;
     else

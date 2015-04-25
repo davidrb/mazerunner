@@ -1,9 +1,6 @@
 #include "controller.h"
-#include <stdio.h>
 
-bool update_controller(Controller* this) {
-    char c = getchar();
-
+bool do_command(Controller* this, char c) {
     if (c == 'w')
 	move_mouse(this->mouse, this->maze);
     else if (c == 'a')
@@ -15,13 +12,13 @@ bool update_controller(Controller* this) {
 	(*this->view).destroy();
 	*this->view = create_view(5);
     } else if (c == 'i') {
-	set_invincible(this->mouse, getchar() == '1');
-	this->view->write_message("set invincible");
+	set_invincible(this->mouse, !this->mouse->invincible);
+	this->view->write_message(
+	    this->mouse->invincible ? "set invincible" : "unset invincible");
     } else if (c == 'g') {
-	set_ghost(this->mouse, getchar() == '1');
-	this->view->write_message("set ghost");
-    } else if (c == ' ') {
-	
+	set_ghost(this->mouse, !this->mouse->ghost);
+	this->view->write_message(
+	    this->mouse->ghost ? "set ghost" : "unset ghost");
     } else if (c == 'q' || c == 4) {
 	return false;
     }
