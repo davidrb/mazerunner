@@ -18,6 +18,7 @@ bool readVWall( FILE *, jmp_buf );
 void expectNewLine( FILE *, jmp_buf );
 void expectPost( FILE *, jmp_buf );
 void expectVWall( FILE *, jmp_buf );
+void expectHWall( FILE *, jmp_buf );
 void expectThreeSpaces( FILE *, jmp_buf );
 
 bool parse_maze(const char* path, Maze *maze) {
@@ -53,13 +54,13 @@ void doMiddle(HWalls hwalls, VWalls vwalls, FILE *file, jmp_buf buf) {
 void doTopOrBottom(bool *hwalls, FILE *file, jmp_buf buf) {
     for (int i = 0; i < Cols; i++) {
 	expectPost(file, buf);
+	expectHWall(file, buf);
 
-	if ( !readHWall(file, buf) )
-	    longjmp(buf, 1);
 	hwalls[i] = true;
     }
+
     expectPost(file, buf);
-    fgetc(file);
+    expectNewLine(file, buf);
 }
 
 void readHWalls(bool *hwalls, FILE *file, jmp_buf buf) {
@@ -112,6 +113,11 @@ bool readVWall(FILE *file, jmp_buf buf) {
 
 void expectPost(FILE *file, jmp_buf buf) {
     if(fgetc(file) != '+')
+	longjmp(buf, 1);
+}
+
+void expectHWall(FILE *file, jmp_buf buf) {
+    if (!readHWall(file, buf))
 	longjmp(buf, 1);
 }
 
