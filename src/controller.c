@@ -11,6 +11,7 @@ bool do_command(Controller* this, char c) {
 	*this->mouse = create_mouse();
 	(*this->view).destroy();
 	*this->view = create_view(5);
+	this->algorithm->reset();
     } else if (c == 'i') {
 	set_invincible(this->mouse, !this->mouse->invincible);
 	this->view->write_message(

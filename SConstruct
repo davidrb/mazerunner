@@ -2,7 +2,7 @@
 
 env = Environment()
 
-env.Append( LINKFLAGS=["-g", "-m32"] );
+env.Append( LINKFLAGS=["-g", "-m32", "-rdynamic"] );
 env.Append( CPPPATH=["include"] );
 env.Append( LIBPATH="lib" );
 

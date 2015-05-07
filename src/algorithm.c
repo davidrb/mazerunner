@@ -15,27 +15,30 @@ typedef Direction (*MoveFunc)(Maze *, Mouse *);
 typedef void (*ResetFunc)();
 
 bool load_algorithm( const char *path, Algorithm *alg ) {
-    void (*init)();
-    void (*reset)();
-    Direction (*move)(Maze *, Mouse *);
+    void *handle = dlopen(path, RTLD_LAZY | RTLD_GLOBAL);
 
-    void *handle = dlopen(path, RTLD_LAZY);
-    *(void **) (&init) = dlsym(handle, "init");
-    *(void **) (&reset) = dlsym(handle, "reset");
-    *(void **) (&move) = dlsym(handle, "move");
-    init();
+    if (!handle)
+	return false;
 
-    alg->move = move;
-    alg->reset = reset;
+    *(void **) (&alg->init) = dlsym(handle, "init");
+    *(void **) (&alg->reset) = dlsym(handle, "reset");
+    *(void **) (&alg->cleanup) = dlsym(handle, "cleanup");
+    *(void **) (&alg->move) = dlsym(handle, "move");
 
-    getchar();
+    if (!alg->cleanup || !alg->init || !alg->reset || !alg->move) {
+	fprintf(stderr, "algorithm is missing a required function.\n" );
+	return false;
+    }
 
     return true;
 }
 
 Algorithm default_algorithm() {
     Algorithm def_alg = {
-	def_reset, def_move,
+	.reset = def_reset,
+	.init = def_reset,
+	.cleanup = def_reset,
+	.move = def_move,
     };
     return def_alg;
 }

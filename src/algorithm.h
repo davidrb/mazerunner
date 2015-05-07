@@ -6,6 +6,8 @@
 
 typedef struct {
     void (*reset)();
+    void (*init)();
+    void (*cleanup)();
     Direction (*move)(Maze *, Mouse *);
 } Algorithm;
 

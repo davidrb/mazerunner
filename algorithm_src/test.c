@@ -18,5 +18,15 @@ void reset() {
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 Direction move( Maze* maze, Mouse *mouse ) {
     fprintf(logfile, "moving\n");
-    return West;
+
+    if ( get_wall(maze, mouse->x, mouse->y, mouse->dir) ) {
+	return West;
+    }
+
+    return North;
+}
+
+void cleanup() {
+    fprintf(stderr, "algorithm finished.\n");
+    fclose(logfile);
 }
