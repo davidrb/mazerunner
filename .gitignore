@@ -1,4 +1,4 @@
-mazerunner
+^mazerunner$
 asdf
 .build/
 *.swp
