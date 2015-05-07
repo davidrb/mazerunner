@@ -1,9 +1,8 @@
-#include "maze.h"
-#include "mouse.h"
+#include <mazerunner/maze.h>
+#include <mazerunner/mouse.h>
+
 #include "parse.h"
-
 #include "view.h"
-
 #include "controller.h"
 
 #include <stdio.h>

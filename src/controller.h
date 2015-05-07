@@ -1,8 +1,9 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include "mouse.h"
-#include "maze.h"
+#include <mazerunner/mouse.h>
+#include <mazerunner/maze.h>
+
 #include "view.h"
 
 struct Controller {

@@ -2,7 +2,7 @@
 #define PARSE_H
 
 #include <stdbool.h>
-#include "maze.h"
+#include <mazerunner/mouse.h>
 
 bool parse_maze(const char *, Maze *);
 

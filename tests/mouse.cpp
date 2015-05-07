@@ -1,7 +1,7 @@
 #include <gmock/gmock.h>
 
 extern "C" { 
-#include "mouse.h"
+#include <mazerunner/mouse.h>
 }
 
 using namespace testing;

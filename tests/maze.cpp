@@ -1,7 +1,7 @@
 #include <gmock/gmock.h>
 
 extern "C" {
-#include "maze.h"
+#include <mazerunner/maze.h>
 #include "parse.h"
 }
 

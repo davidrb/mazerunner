@@ -1,5 +1,6 @@
 #include "parse.h"
-#include "maze.h"
+
+#include <mazerunner/maze.h>
 
 #include <stdio.h>
 #include <assert.h>

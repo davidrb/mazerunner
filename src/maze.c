@@ -1,4 +1,5 @@
-#include "maze.h"
+#include <mazerunner/maze.h>
+
 #include "display.h"
 #include "parse.h"
 
