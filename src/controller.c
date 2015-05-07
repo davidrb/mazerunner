@@ -19,6 +19,13 @@ bool do_command(Controller* this, char c) {
 	set_ghost(this->mouse, !this->mouse->ghost);
 	this->view->write_message(
 	    this->mouse->ghost ? "set ghost" : "unset ghost");
+    } else if (c == 'n') {
+	switch( this->algorithm->move( this->maze, this->mouse ) ) {
+	    case North: move_mouse(this->mouse, this->maze); break;
+	    case South: break;
+	    case East: turn_right(this->mouse); break;
+	    case West: turn_left(this->mouse); break;
+	}
     } else if (c == 'q' || c == 4) {
 	return false;
     }
@@ -27,11 +34,12 @@ bool do_command(Controller* this, char c) {
     return true;
 }
 
-Controller create_controller(View *view, Maze* maze, Mouse* mouse) {
+Controller create_controller(View *view, Maze* maze, Mouse* mouse, Algorithm *algorithm) {
     Controller controller = {
 	.view = view,
 	.maze = maze,
 	.mouse = mouse,
+	.algorithm = algorithm,
     };
 
     view->update(maze, mouse);

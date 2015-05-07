@@ -4,17 +4,19 @@
 #include <mazerunner/mouse.h>
 #include <mazerunner/maze.h>
 
+#include "algorithm.h"
 #include "view.h"
 
 struct Controller {
     Maze* maze;
     Mouse* mouse;
     View* view;
+    Algorithm *algorithm;
 };
 
 bool do_command(struct Controller *, char);
 typedef struct Controller Controller;
 
-Controller create_controller(View *view, Maze *, Mouse *);
+Controller create_controller(View *, Maze *, Mouse *, Algorithm *);
 
 #endif

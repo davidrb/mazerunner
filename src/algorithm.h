@@ -6,7 +6,10 @@
 
 typedef struct {
     void (*reset)();
-    Direction (*move)();
+    Direction (*move)(Maze *, Mouse *);
 } Algorithm;
+
+Algorithm default_algorithm();
+Algorithm load_algorithm( const char *path );
 
 #endif
