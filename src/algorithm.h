@@ -10,6 +10,6 @@ typedef struct {
 } Algorithm;
 
 Algorithm default_algorithm();
-Algorithm load_algorithm( const char *path );
+bool load_algorithm( const char *path, Algorithm *alg );
 
 #endif

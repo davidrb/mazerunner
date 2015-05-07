@@ -34,7 +34,9 @@ bool do_command(Controller* this, char c) {
     return true;
 }
 
-Controller create_controller(View *view, Maze* maze, Mouse* mouse, Algorithm *algorithm) {
+Controller create_controller(View *view, Maze* maze, 
+	Mouse* mouse, Algorithm *algorithm) 
+{
     Controller controller = {
 	.view = view,
 	.maze = maze,
