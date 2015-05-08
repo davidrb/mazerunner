@@ -79,6 +79,16 @@ void go_forward(Mouse *mouse, Maze *maze) {
     }
 }
 
+bool is_clear(Mouse *mouse, Maze *maze, Move move) {
+    Direction dir = mouse->dir;
+    if (move == Left) 
+	dir = rotate_ccw(dir);
+    else if (move == Right)
+	dir = rotate_cw(dir);
+
+    return !get_wall( maze, mouse->x, mouse->y, dir );
+}
+
 void turn_right(Mouse *m) {
     m->dir = (m->dir +1) % 4;
 }

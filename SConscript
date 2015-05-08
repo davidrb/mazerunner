@@ -23,7 +23,7 @@ run_tests = Command( target="run_tests",
 		     source=tests,
 		     action="TERM=xterm && export TERM && .build/tests/tests");
 
-test_alg = alg_env.SharedLibrary( '../algorithms/test.so', 'algorithm_src/test.c');
+test_alg = alg_env.SharedLibrary( '../test.so', 'algorithm_src/test.c');
 
 env.AlwaysBuild(run_tests);
 env.Default([ bin, test_alg]);

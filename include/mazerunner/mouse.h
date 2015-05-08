@@ -16,6 +16,8 @@ void go_forward(Mouse *, Maze *);
 void turn_left(Mouse *);
 void turn_right(Mouse *);
 
+bool is_clear(Mouse *, Maze *, Move);
+
 void set_invincible(Mouse *, bool);
 void set_ghost(Mouse *, bool);
 

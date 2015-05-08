@@ -1,5 +1,7 @@
 #include "controller.h"
 
+typedef void (*Command)(Controller *, char);
+
 bool do_command(Controller* this, char c) {
     if (c == 'w')
 	move_mouse(this->mouse, this->maze, Forward);
