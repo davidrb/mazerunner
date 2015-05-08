@@ -1,5 +1,5 @@
 #ifndef ALGORITHM_H
-#define ALGORITH_H
+#define ALGORITHM_H
 
 #include <mazerunner/maze.h>
 #include <mazerunner/mouse.h>

@@ -9,7 +9,7 @@ typedef struct Mouse Mouse;
 
 Mouse create_mouse();
 
-typedef enum { Forward, Right, Left } Move;
+typedef enum { Forward, Right, Left, NoMove } Move;
 void move_mouse(Mouse *, Maze *, Move);
 
 void go_forward(Mouse *, Maze *);

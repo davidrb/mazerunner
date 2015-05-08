@@ -10,7 +10,7 @@ env.Append( LIBPATH="lib" );
 env['SHLIBPREFIX'] = '';
 
 env.Append( CCFLAGS=
-   ["-Wall", "-Werror", "-pedantic", "-Wextra", "-m32", "-std=c99"] );
+   ["-Wall", "-Werror", "-pedantic", "-Wextra", "-m32", "-std=c99", "-g"] );
 
 objs = [env.Object(f) for f in Glob("src/*.c")];
 
