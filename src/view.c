@@ -56,6 +56,11 @@ void update_lvl5(Maze *maze, Mouse *mouse) {
 	get_wall(maze, x, y, West),
 	get_wall(maze, x, y, South));
 
+    mouse_cam(
+	get_wall(maze, x, y, rotate_ccw(mouse->dir)),
+	get_wall(maze, x, y, mouse->dir),
+	get_wall(maze, x, y, rotate_cw(mouse->dir)));
+
     update_mouse(mouse);
 }
 
