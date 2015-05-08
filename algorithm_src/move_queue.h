@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <assert.h>
 
 #include <mazerunner/maze.h>
 
@@ -9,6 +10,8 @@ void push_move( Direction dir, Direction *queue) {
 }
 
 Direction next_move( Direction *queue ) {
+    assert(num_moves > 0);
+
     Direction dir = queue[0];
     num_moves--;
 
@@ -20,5 +23,5 @@ Direction next_move( Direction *queue ) {
 }
 
 bool moves_empty() {
-    return num_moves == 0;
+    return !(num_moves > 0);
 }
