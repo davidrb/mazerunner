@@ -1,7 +1,7 @@
 #include <mazerunner/maze.h>
 #include <mazerunner/mouse.h>
 
-#include "move_queue.h"
+#include <mazerunner/move_queue.h>
 
 #include <stdio.h>
 

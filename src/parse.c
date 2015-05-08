@@ -6,9 +6,9 @@
 #include <assert.h>
 #include <setjmp.h>
 
-void doAll( HWalls, VWalls, FILE*, jmp_buf);
-void doTopOrBottom( HLine, FILE*, jmp_buf );
-void doMiddle( HWalls, VWalls, FILE*, jmp_buf );
+void parseAll( HWalls, VWalls, FILE*, jmp_buf);
+void parseTopOrBottom( HLine, FILE*, jmp_buf );
+void parseMiddle( HWalls, VWalls, FILE*, jmp_buf );
 
 void readHWalls( HLine, FILE *, jmp_buf );
 void readVWalls( VLine, FILE *, jmp_buf );
@@ -27,7 +27,7 @@ bool parse_maze(const char* path, Maze *maze) {
     jmp_buf buf;
 
     if ( file && setjmp(buf) == 0 ) {
-	doAll( maze->hwalls, maze->vwalls, file, buf );
+	parseAll( maze->hwalls, maze->vwalls, file, buf );
     } else {
 	fclose(file);
 	return false;
@@ -37,13 +37,13 @@ bool parse_maze(const char* path, Maze *maze) {
     return true;
 }
 
-void doAll( HWalls hwalls, VWalls vwalls, FILE *file, jmp_buf buf ) {
-    doTopOrBottom( hwalls[0], file, buf);
-    doMiddle( hwalls, vwalls, file, buf);
-    doTopOrBottom( hwalls[Rows], file, buf);
+void parseAll( HWalls hwalls, VWalls vwalls, FILE *file, jmp_buf buf ) {
+    parseTopOrBottom( hwalls[0], file, buf);
+    parseMiddle( hwalls, vwalls, file, buf);
+    parseTopOrBottom( hwalls[Rows], file, buf);
 }
 
-void doMiddle(HWalls hwalls, VWalls vwalls, FILE *file, jmp_buf buf) {
+void parseMiddle(HWalls hwalls, VWalls vwalls, FILE *file, jmp_buf buf) {
     readVWalls(vwalls[0], file, buf);
 
     for (int r = 1; r < Rows; r++) {
@@ -52,7 +52,7 @@ void doMiddle(HWalls hwalls, VWalls vwalls, FILE *file, jmp_buf buf) {
     }
 }
 
-void doTopOrBottom(bool *hwalls, FILE *file, jmp_buf buf) {
+void parseTopOrBottom(bool *hwalls, FILE *file, jmp_buf buf) {
     for (int i = 0; i < Cols; i++) {
 	expectPost(file, buf);
 	expectHWall(file, buf);
