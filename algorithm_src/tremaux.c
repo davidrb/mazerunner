@@ -6,6 +6,7 @@ void init() {
 }
 
 Move move(Mouse *mouse, Maze *maze) {
+    mouse++; maze++;
     return Forward;
 }
 
