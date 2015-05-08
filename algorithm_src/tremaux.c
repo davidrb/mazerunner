@@ -5,9 +5,19 @@
 void init() {
 }
 
+int marks[Cols][Rows] = {{0}};
+
 Move move(Mouse *mouse, Maze *maze) {
-    mouse++; maze++;
-    return Forward;
+    /*
+    int x = mouse->x,
+	y = mouse->y;
+
+    marks[x][y]++;
+*/
+    mouse++;
+    maze++;
+    Move next = Forward;
+    return next;
 }
 
 void reset() {

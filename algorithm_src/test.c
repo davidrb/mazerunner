@@ -9,23 +9,17 @@ void init() {
 }
 
 Move move( Maze* maze, Mouse *mouse ) {
-    int right = rotate_cw(mouse->dir),
-	left = rotate_ccw(mouse->dir),
-	forward = mouse->dir,
-	x = mouse->x,
-	y = mouse->y;
-
     if (moves_empty()) {
-	if (!get_wall(maze, x, y, right)) {
+	if (is_clear(mouse, maze, Right)) {
 	    push_move(Right);
 	    push_move(Forward);
 	}
 
-	else if (!get_wall(maze, x, y, forward)) {
+	else if (is_clear(mouse, maze, Forward)) {
 	    push_move(Forward);
 	}
 
-	else if(!get_wall(maze, x, y, left)) {
+	else if(is_clear(mouse, maze, Left)) {
 	    push_move(Left);
 	    push_move(Forward);
 	}

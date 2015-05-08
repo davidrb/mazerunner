@@ -24,6 +24,7 @@ for name in os.listdir('../algorithm_src/'):
     if (name[-2:] == ".c"):
 	so_name = '../' + name[:-2] + '.so'
 	src_path = '../algorithm_src/' + name
+
         algs += [ env.SharedLibrary(so_name, src_path) ];
 
 env.Default([bin] + algs);
