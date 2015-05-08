@@ -27,14 +27,6 @@ Mouse create_mouse() {
     return mouse;
 }
 
-int getX(Mouse *m) {
-    return m->x;
-}
-
-int getY(Mouse *m) {
-    return m->y;
-}
-
 int get_cells( Mouse *mouse ) {
     return mouse->cells;
 }
@@ -47,11 +39,20 @@ Direction getDir(Mouse *m) {
     return m->dir;
 }
 
-void move_mouse(Mouse *mouse, Maze *maze) {
+void move_mouse(Mouse *mouse, Maze *maze, Move move) {
+    if (move == Forward) 
+	go_forward(mouse, maze);
+    else if (move == Left)
+	turn_left(mouse);
+    else
+	turn_right(mouse);
+}
+
+void go_forward(Mouse *mouse, Maze *maze) {
     if (did_crash(mouse)) return;
 
     Direction dir = getDir(mouse);
-    int x = getX(mouse), y = getY(mouse);
+    int x = mouse->x, y = mouse->y;
 
     if ( get_wall(maze, x, y, dir) && !mouse->ghost ) {
 	mouse->crashed = !mouse->invincible;
@@ -63,8 +64,8 @@ void move_mouse(Mouse *mouse, Maze *maze) {
 
 	if (x < 0 || x >= Cols || y < 0 || y >= Rows) {
 	    mouse->crashed = !mouse->invincible && !mouse->ghost;
-	    x = getX(mouse);
-	    y = getY(mouse);
+	    x = mouse->x;
+	    y = mouse->y;
 	} else {
 	    mouse->cells++;
 	    mouse->x = x; 

@@ -9,8 +9,10 @@ typedef struct Mouse Mouse;
 
 Mouse create_mouse();
 
-void move_mouse(Mouse *, Maze *);
+typedef enum { Forward, Right, Left } Move;
+void move_mouse(Mouse *, Maze *, Move);
 
+void go_forward(Mouse *, Maze *);
 void turn_left(Mouse *);
 void turn_right(Mouse *);
 
@@ -18,9 +20,6 @@ void set_invincible(Mouse *, bool);
 void set_ghost(Mouse *, bool);
 
 Direction getDir(Mouse *);
-
-int getX(Mouse *);
-int getY(Mouse *);
 
 bool visited(Mouse *, int x, int y);
 

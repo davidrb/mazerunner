@@ -2,7 +2,7 @@
 
 bool do_command(Controller* this, char c) {
     if (c == 'w')
-	move_mouse(this->mouse, this->maze);
+	move_mouse(this->mouse, this->maze, Forward);
     else if (c == 'a')
 	turn_left(this->mouse);
     else if (c == 'd')
@@ -20,7 +20,7 @@ bool do_command(Controller* this, char c) {
 	if ( (get_wall(this->maze, x, y, rotate_cw(dir)) ||
 	     get_wall(this->maze, x, y, rotate_ccw(dir))) &&
 	     !get_wall(this->maze, x, y, dir) ) {
-	    move_mouse(this->mouse, this->maze);
+	    move_mouse(this->mouse, this->maze, Forward);
 	} else {
 	    turn_right(this->mouse);
 	}
@@ -40,7 +40,7 @@ bool do_command(Controller* this, char c) {
 	unreveal_maze(this->maze, this->mouse);
     } else if (c == ' ') {
 	switch( this->algorithm->move( this->maze, this->mouse ) ) {
-	    case North: move_mouse(this->mouse, this->maze); break;
+	    case North: move_mouse(this->mouse, this->maze, Forward); break;
 	    case South: break;
 	    case East: turn_right(this->mouse); break;
 	    case West: turn_left(this->mouse); break;

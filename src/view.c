@@ -13,13 +13,13 @@ void update_mouse(Mouse *mouse) {
     if ( did_crash(mouse) )
 	show_mouse(
 	       CRASH,
-	       getY(mouse), getX(mouse));
+	       mouse->y, mouse->x);
     else
 	show_mouse(
 	       dirs[ getDir(mouse) ],
-	       getY(mouse), getX(mouse));
+	       mouse->y, mouse->x);
 
-   show_position( getY(mouse), getX(mouse) ); 
+   show_position( mouse->x, mouse->y ); 
    show_cells( get_cells(mouse) );
    show_unique_cells( get_unique_cells(mouse) );
 }
@@ -47,8 +47,8 @@ void update_lvl0(Maze *maze, Mouse *mouse) {
 }
 
 void update_lvl5(Maze *maze, Mouse *mouse) {
-    int x = getX(mouse), 
-	y = getY(mouse);
+    int x = mouse->x,
+	y = mouse->y;
 
     put_walls( y, x,
 	get_wall(maze, x, y, North),

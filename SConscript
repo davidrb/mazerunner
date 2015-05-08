@@ -26,4 +26,4 @@ run_tests = Command( target="run_tests",
 test_alg = alg_env.SharedLibrary( '../algorithms/test.so', 'algorithm_src/test.c');
 
 env.AlwaysBuild(run_tests);
-env.Default([ bin, run_tests, test_alg]);
+env.Default([ bin, test_alg]);
