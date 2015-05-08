@@ -2,6 +2,14 @@
 #include <mazerunner/mouse.h>
 #include <mazerunner/maze.h>
 
+Direction rotate_cw( Direction dir ) {
+    return (dir+1) % 4;
+}
+
+Direction rotate_ccw( Direction dir ) {
+    return (dir+3) % 4;
+}
+
 Mouse create_mouse() {
     Mouse mouse = {
 	.x = 0, .y = 0,

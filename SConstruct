@@ -16,6 +16,8 @@ cpp_env.Append( CPPFLAGS=["-Wall", "-Werror", "-pedantic"] );
 cpp_env.Append( LIBS=["gmock"] );
 cpp_env.Append( CPPPATH=["src"] );
 
-Export("env cpp_env c_env");
+alg_env = c_env
+alg_env['SHLIBPREFIX'] = '';
+Export("env cpp_env c_env alg_env");
 
 SConscript('SConscript', variant_dir='.build', duplicate=0);

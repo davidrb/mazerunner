@@ -20,6 +20,33 @@ Maze create_maze() {
     return maze;
 }
 
+void reveal_maze(Maze *maze) {
+    for (int x = 0; x < Cols; x++) {
+	for(int y = 0; y < Rows; y++) {
+	    put_walls( y, x, 
+		get_wall(maze, x, y, North),
+		get_wall(maze, x, y, East),
+		get_wall(maze, x, y, West),
+		get_wall(maze, x, y, South));
+	}
+    }
+}
+
+void unreveal_maze(Maze *maze, Mouse *mouse ) {
+    for (int x = 0; x < Cols; x++) {
+	for(int y = 0; y < Rows; y++) {
+	    if( mouse->visited[x][y] )
+		put_walls( y, x, 
+		    get_wall(maze, x, y, North),
+		    get_wall(maze, x, y, East),
+		    get_wall(maze, x, y, West),
+		    get_wall(maze, x, y, South));
+	    else
+		put_walls( y, x, 0, 0, 0, 0 );
+	}
+    }
+}
+
 bool get_wall(Maze *maze, int x, int y, Direction dir) {
     assert(maze);
     assert(0 <= x && x < Cols);

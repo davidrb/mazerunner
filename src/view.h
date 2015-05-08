@@ -6,6 +6,7 @@
 
 typedef struct {
     void (*update)(Maze *, Mouse *);
+    void (*clear_maze)();
     void (*write_message)(char *);
     void (*destroy)();
 } View;

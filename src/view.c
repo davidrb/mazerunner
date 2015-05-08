@@ -24,6 +24,14 @@ void update_mouse(Mouse *mouse) {
    show_unique_cells( get_unique_cells(mouse) );
 }
 
+void clear_maze() {
+     for (int x = 0; x < Cols; x++) {
+	for(int y = 0; y < Rows; y++) {
+	    put_walls( y, x, 0, 0, 0, 0 );
+	}
+    }
+}
+
 void update_lvl0(Maze *maze, Mouse *mouse) {
     for (int x = 0; x < Cols; x++) {
 	for(int y = 0; y < Rows; y++) {
@@ -67,6 +75,7 @@ View create_view( int level ) {
 
     view.write_message = view_write_error;
     view.destroy = clear_screen;
+    view.clear_maze = clear_maze;
 
     return view;
 }
