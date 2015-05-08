@@ -8,9 +8,9 @@
 void init() {
 }
 
-Direction queue[3];
+Move queue[3];
 
-Direction move( Maze* maze, Mouse *mouse ) {
+Move move( Maze* maze, Mouse *mouse ) {
     int right = rotate_cw(mouse->dir),
 	left = rotate_ccw(mouse->dir),
 	forward = mouse->dir,
@@ -19,23 +19,23 @@ Direction move( Maze* maze, Mouse *mouse ) {
 
     if (moves_empty()) {
 	if (!get_wall(maze, x, y, right)) {
-	    push_move(East, queue);
-	    push_move(North, queue);
+	    push_move(Right, queue);
+	    push_move(Forward, queue);
 	}
 
 	else if (!get_wall(maze, x, y, forward)) {
-	    push_move(North, queue);
+	    push_move(Forward, queue);
 	}
 
 	else if(!get_wall(maze, x, y, left)) {
-	    push_move(West, queue);
-	    push_move(North, queue);
+	    push_move(Left, queue);
+	    push_move(Forward, queue);
 	}
 
 	else {
-	    push_move(East, queue);
-	    push_move(East, queue);
-	    push_move(North, queue);
+	    push_move(Right, queue);
+	    push_move(Right, queue);
+	    push_move(Forward, queue);
 	}
     }
 

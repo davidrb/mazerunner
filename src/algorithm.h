@@ -8,7 +8,7 @@ typedef struct {
     void (*reset)();
     void (*init)();
     void (*cleanup)();
-    Direction (*move)(Maze *, Mouse *);
+    Move (*move)(Maze *, Mouse *);
 } Algorithm;
 
 Algorithm default_algorithm();

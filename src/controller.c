@@ -39,12 +39,8 @@ bool do_command(Controller* this, char c) {
 	(*this->view) = create_view(5);
 	unreveal_maze(this->maze, this->mouse);
     } else if (c == ' ') {
-	switch( this->algorithm->move( this->maze, this->mouse ) ) {
-	    case North: move_mouse(this->mouse, this->maze, Forward); break;
-	    case South: break;
-	    case East: turn_right(this->mouse); break;
-	    case West: turn_left(this->mouse); break;
-	}
+	Move move = this->algorithm->move( this->maze, this->mouse );
+	move_mouse( this->mouse, this->maze,  move );
     } else if (c == 'q' || c == 4) {
 	return false;
     }

@@ -7,8 +7,8 @@
 static void def_reset() {}
 
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-static Direction def_move( Maze *maze, Mouse *mouse ) {
-    return North;
+static Move def_move( Maze *maze, Mouse *mouse ) {
+    return Forward;
 }
 
 typedef Direction (*MoveFunc)(Maze *, Mouse *);
