@@ -3,13 +3,16 @@
 typedef void (*Command)(Controller *, char);
 
 bool do_command(Controller* this, char c) {
-    if (c == 'w')
-	move_mouse(this->mouse, this->maze, Forward);
-    else if (c == 'a')
-	turn_left(this->mouse);
-    else if (c == 'd')
-	turn_right(this->mouse);
-    else if (c == 'R') {
+    if (c == 'w' || c == 'a' || c == 'd') {
+	this->algorithm->reset();
+
+	if (c == 'w')
+	    move_mouse(this->mouse, this->maze, Forward);
+	else if (c == 'a')
+	    turn_left(this->mouse);
+	else
+	    turn_right(this->mouse);
+    } else if (c == 'R') {
 	*this->mouse = create_mouse();
 	(*this->view).destroy();
 	*this->view = create_view(5);

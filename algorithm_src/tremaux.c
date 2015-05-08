@@ -40,18 +40,20 @@ Move move(Maze *maze, Mouse *mouse) {
 	    for(int i = 0; true; i++) {
 		if (clear_ahead && (num_marks(x, y, (dir)) == i)) {
 		    push_move(Forward);
+		    break;
 		} 
-		else if (clear_right && (num_marks(x, y, rotate_cw(dir)) == i)) {
+
+		if (clear_right && (num_marks(x, y, rotate_cw(dir)) == i)) {
 		    push_move(Right);
 		    push_move(Forward);
+		    break;
 		} 
-		else if (clear_left && (num_marks(x, y, rotate_ccw(dir)) == i)) {
+
+		if (clear_left && (num_marks(x, y, rotate_ccw(dir)) == i)) {
 		    push_move(Left);
 		    push_move(Forward);
-		} else {
-		    continue;
+		    break;
 		}
-		break;
 	    }
 	}
     }
