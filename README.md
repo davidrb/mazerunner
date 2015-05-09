@@ -4,7 +4,7 @@
 - -m loads a specified maze file.  Default is "maze.dat"
 - -a loads an algoithm.  Default is "tremaux.so"
 
-##Keys
+##Controls
 - w moves the mouse
 - a turns mouse left
 - d turns mouse right
