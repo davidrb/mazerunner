@@ -25,14 +25,11 @@ int main(int argc, char *argv[]) {
 	
     }
 
-    algorithm.init();
-
     View view = create_view(5);
     Controller controller = create_controller(&view, &maze, &mouse, &algorithm);
 
     while(do_command( &controller, getchar() ));
 
-    algorithm.cleanup();
     view.destroy();
 
     return 0;

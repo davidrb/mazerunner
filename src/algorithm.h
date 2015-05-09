@@ -11,8 +11,6 @@ bool load_algorithm( const char *path, Algorithm *alg );
 
 struct Algorithm {
     void (*reset)();
-    void (*init)();
-    void (*cleanup)();
     Move (*move)(Maze *, Mouse *);
 };
 

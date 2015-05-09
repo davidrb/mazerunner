@@ -1,6 +1,7 @@
 #include <mazerunner/maze.h>
 #include <mazerunner/mouse.h>
 
+#define QUEUE_SIZE 3
 #include <mazerunner/move_queue.h>
 
 #include <stdio.h>

@@ -1,6 +1,8 @@
-^mazerunner$
+mazerunner
 asdf
 .build/
 *.swp
 *.o
+*.so
+*.os
 *.sconsign.dblite

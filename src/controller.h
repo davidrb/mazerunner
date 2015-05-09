@@ -7,16 +7,16 @@
 #include "algorithm.h"
 #include "view.h"
 
+typedef struct Controller Controller;
+bool do_command(Controller *, char);
+
+Controller create_controller(View *, Maze *, Mouse *, Algorithm *);
+
 struct Controller {
     Maze* maze;
     Mouse* mouse;
     View* view;
     Algorithm *algorithm;
 };
-
-bool do_command(struct Controller *, char);
-typedef struct Controller Controller;
-
-Controller create_controller(View *, Maze *, Mouse *, Algorithm *);
 
 #endif

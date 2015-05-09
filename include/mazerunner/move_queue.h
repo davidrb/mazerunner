@@ -1,25 +1,28 @@
-#ifndef QUEUE_SIZE
-#define QUEUE_SIZE 100
-#endif
+#include <mazerunner/maze.h>
+#include <mazerunner/mouse.h>
 
 #include <stdlib.h>
 #include <assert.h>
 
-#include <mazerunner/maze.h>
-#include <mazerunner/mouse.h>
+/* fixed size statis FIFO queue */
+/* #define QUEUE_SIZE before including */
 
-/* inline fixed size queue */
+#ifndef QUEUE_SIZE
+#define QUEUE_SIZE 1
+#endif
 
 Move move_queue[QUEUE_SIZE];
 int num_moves = 0;
 
-void push_move( Move dir) {
+static void push_move( Move dir) {
     assert( num_moves <= QUEUE_SIZE );
+
     move_queue[num_moves++] = dir;
+
     assert(num_moves > 0);
 }
 
-Move next_move() {
+static Move next_move() {
     assert(num_moves > 0);
 
     Move dir = move_queue[0];
@@ -32,8 +35,7 @@ Move next_move() {
     return dir;
 }
 
-#include <stdio.h>
-bool moves_empty() {
+static bool moves_empty() {
     assert(num_moves >= 0);
     return !(num_moves > 0);
 }
