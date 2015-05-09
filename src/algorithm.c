@@ -31,6 +31,8 @@ bool load_algorithm( const char *path, Algorithm *alg ) {
     void *handle = NULL;
     if (!(handle = get_handle(path))) {
 	fprintf(stderr, "couldn't open algorithm file\n");
+	fprintf(stderr, dlerror());
+	fprintf(stderr, "\n");
 	return false;
     }
 
