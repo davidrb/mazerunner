@@ -16,7 +16,7 @@ clean:
 	rm -rf .build/*
 	rm -rf submit/
 
-pack: clean
+submit: clean
 	tar -zcvf mazerunner.tar.gz *
 	mkdir submit
 	mv mazerunner.tar.gz submit
