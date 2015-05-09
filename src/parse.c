@@ -24,9 +24,11 @@ void expectThreeSpaces( FILE *, jmp_buf );
 
 bool parse_maze(const char* path, Maze *maze) {
     FILE *file = fopen(path, "r");
+    if (file == NULL) return false;
+
     jmp_buf buf;
 
-    if ( file && setjmp(buf) == 0 ) {
+    if ( setjmp(buf) == 0 ) {
 	parseAll( maze->hwalls, maze->vwalls, file, buf );
     } else {
 	fclose(file);
