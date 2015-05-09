@@ -5,12 +5,12 @@
 - -a loads an algoithm.  Default is "tremaux.so"
 
 ##Controls
-- w, move forward
-- a, turns mouse left
-- d, turns mouse right
-- R, resets mouse 
-- r, right wall hugger
-- l, left wall hugger
-- g, toggle ghost mode
-- i, toggle invincibility
-- space, runs the algorithm
+- w Move forward
+- a Turns mouse left
+- d Turns mouse right
+- R Resets mouse 
+- r Right wall hugger
+- l Left wall hugger
+- g Toggle ghost mode
+- i Toggle invincibility
+- space Step algorithm
