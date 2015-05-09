@@ -15,7 +15,7 @@ static void update_mouse(Mouse *mouse) {
 
     if ( mouse->crashed ) {
 	show_mouse(CRASH, y, x);
-	write_message("You Crashed!", 0);
+	write_message("You Crashed! Would you like to continue (y/n)?", 0);
     } else {
 	if (mouse->won)
 	    write_message( "You Won!", 0 );

@@ -20,7 +20,7 @@ bin = env.Program(
 	LIBS=['dl', 'curses']);
 
 algs = []
-for name in os.listdir('../algorithm_src/'):
+for name in os.listdir('../algorithm_src'):
     if (name[-2:] == ".c"):
 	so_name = '../' + name[:-2] + '.so'
 	src_path = '../algorithm_src/' + name

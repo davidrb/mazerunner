@@ -23,7 +23,7 @@ struct Mouse {
     bool invincible, ghost;
     bool visited[Rows][Cols];
     int cells, unique_cells;
-    bool won;
+    bool won, cheater;
 };
 
 #endif

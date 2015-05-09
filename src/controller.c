@@ -78,10 +78,11 @@ bool do_command(Controller* this, char c) {
     // cheat
     else if (c == 'm') {
 	reveal_maze(maze);
+	mouse->cheater = true;
 	view->write_message( "You Cheated" );
     } 
     // uncheat
-    else if (c == 'n') {
+    else if (c == 'n' && !mouse->crashed && mouse->cheater) {
 	view->clear();
 	unreveal_maze(maze, mouse);
 	view->write_message( "You Still Cheated" );
@@ -94,6 +95,12 @@ bool do_command(Controller* this, char c) {
     // quit
     else if (c == 'q' || c == 4) {
 	this->quit = true;
+    }
+    else if (mouse->crashed) {
+	if (c == 'y')
+	    do_command(this, 'R');
+	else if (c == 'n')
+	    this->quit = true;
     }
 
     view->update(maze, mouse);
