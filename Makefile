@@ -12,4 +12,4 @@ clean:
 	rm -f ./algorithm_src/*.os
 	rm -f *.so
 	rm -f mazerunner
-	rm -rf .build	
+	rm -rf .build/*
