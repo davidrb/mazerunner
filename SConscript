@@ -3,14 +3,14 @@ import os
 
 env = Environment();
 
-env.Append( LINKFLAGS=["-g", "-m32", "-rdynamic"] );
+env.Append( LINKFLAGS=["-m32", "-rdynamic"] );
 env.Append( CPPPATH=["include"] );
 env.Append( LIBPATH="lib" );
 
 env['SHLIBPREFIX'] = '';
 
 env.Append( CCFLAGS=
-   ["-Wall", "-Werror", "-pedantic", "-Wextra", "-m32", "-std=c99", "-g"] );
+   ["-Wall", "-Werror", "-pedantic", "-Wextra", "-m32", "-std=c99"] );
 
 objs = [env.Object(f) for f in Glob("src/*.c")];
 
