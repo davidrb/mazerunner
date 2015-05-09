@@ -22,10 +22,9 @@ int main(int argc, char *argv[]) {
 	    fprintf(stderr, "error loading algorithm");
 	    return 2;
 	}
-	
     }
 
-    View view = create_view(5);
+    View view = create_view();
     Controller controller = create_controller(&view, &maze, &mouse, &algorithm);
 
     while(do_command( &controller, getchar() ));

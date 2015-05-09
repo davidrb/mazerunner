@@ -23,33 +23,36 @@ int num_marks(int x, int y, Direction dir) {
 
 Move move(Maze *maze, Mouse *mouse) {
     int x = mouse->x,
-	y = mouse->y,
-	dir = mouse->dir;
+	y = mouse->y;
+    Direction dir = mouse->dir;
+
+    bool clear_right = is_clear(mouse, maze, Right),
+	 clear_ahead = is_clear(mouse, maze, Forward),
+	 clear_left = is_clear(mouse, maze, Left);
+
+    int  num_right = num_marks(x, y, rotate_cw(dir)),
+	 num_ahead = num_marks(x, y, dir),
+	 num_left = num_marks(x, y, rotate_ccw(dir));
 
     if (moves_empty()) {
-
-	bool clear_right = is_clear(mouse, maze, Right);
-	bool clear_ahead = is_clear(mouse, maze, Forward);
-	bool clear_left = is_clear(mouse, maze, Left);
-
 	if (!clear_right && !clear_left && !clear_ahead ) {
 	    push_move(Right);
 	    push_move(Right);
 	    push_move(Forward);
 	} else {
 	    for(int i = 0; true; i++) {
-		if (clear_ahead && (num_marks(x, y, (dir)) == i)) {
+		if (clear_ahead && num_ahead == i) {
 		    push_move(Forward);
 		    break;
 		} 
 
-		if (clear_right && (num_marks(x, y, rotate_cw(dir)) == i)) {
+		if (clear_right && num_right == i) {
 		    push_move(Right);
 		    push_move(Forward);
 		    break;
 		} 
 
-		if (clear_left && (num_marks(x, y, rotate_ccw(dir)) == i)) {
+		if (clear_left && num_left == i) {
 		    push_move(Left);
 		    push_move(Forward);
 		    break;
@@ -60,12 +63,27 @@ Move move(Maze *maze, Mouse *mouse) {
 
     Move next = next_move();
 
-    if (next == Forward)
-	marks[x][y]++;
-    else if (next == prev) 
-	marks[x][y]++;
+    if (next == Right && next == prev)
+	marks[x][y]=2;
+    else if (next == Forward && marks[x][y] == 0) 
+	marks[x][y]=1;
+    else if (marks[x][y] == 1) {
+	if ( (!clear_left || num_left != 0) &&
+	     (!clear_ahead || num_ahead != 0) &&
+	     (!clear_right || num_right != 0))
+	    marks[x][y] = 2;
+    }
 
     prev = next;
+
+    FILE *file = fopen("tremaux.txt", "w");
+    for (int i = Rows-1; i >= 0; i--) {
+	for (int j = 0; j < Cols; j++)
+	    fprintf(file, " %d ", marks[j][i]);
+	fprintf(file, "\n");
+    }
+    fclose(file);
+
     return next;
 }
 

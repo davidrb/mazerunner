@@ -1,56 +1,83 @@
 #include "controller.h"
 
-typedef void (*Command)(Controller *, char);
-
 bool do_command(Controller* this, char c) {
+    Mouse *mouse = this->mouse;
+    Maze *maze = this->maze;
+    View *view = this->view;
+    Algorithm *algorithm = this->algorithm;
+
+    // movement
     if (c == 'w' || c == 'a' || c == 'd') {
-	this->algorithm->reset();
+	algorithm->reset();
 
 	if (c == 'w')
-	    move_mouse(this->mouse, this->maze, Forward);
+	    move_mouse(mouse, maze, Forward);
 	else if (c == 'a')
-	    turn_left(this->mouse);
+	    turn_left(mouse);
 	else
-	    turn_right(this->mouse);
-    } else if (c == 'R') {
-	*this->mouse = create_mouse();
-	(*this->view).destroy();
-	*this->view = create_view(5);
-	this->algorithm->reset();
-    } else if (c == 'r') {
-	int x = this->mouse->x;
-	int y = this->mouse->y;
-	int dir = this->mouse->dir;
+	    turn_right(mouse);
 
-	if ( (get_wall(this->maze, x, y, rotate_cw(dir)) ||
-	     get_wall(this->maze, x, y, rotate_ccw(dir))) &&
-	     !get_wall(this->maze, x, y, dir) ) {
-	    move_mouse(this->mouse, this->maze, Forward);
+    } 
+    // reset
+    else if (c == 'R') {
+	*mouse = create_mouse();
+	(*view).destroy();
+	*view = create_view(5);
+	algorithm->reset();
+    } 
+    // right wall hug
+    else if (c == 'r') {
+	if (is_clear(mouse, maze, Right)) {
+	    move_mouse(mouse, maze, Right);
+	    move_mouse(mouse, maze, Forward);
+	} 
+	else if (is_clear(mouse, maze, Forward)) {
+	    move_mouse(mouse, maze, Forward);
+	} 
+	else if (is_clear(mouse, maze, Left)) {
+	    move_mouse(mouse, maze, Left);
+	    move_mouse(mouse, maze, Forward);
 	} else {
-	    turn_right(this->mouse);
+	    move_mouse(mouse, maze, Right);
+	    move_mouse(mouse, maze, Right);
+	    move_mouse(mouse, maze, Forward);
 	}
-    } else if (c == 'i') {
-	set_invincible(this->mouse, !this->mouse->invincible);
-	this->view->write_message(
-	    this->mouse->invincible ? "set invincible" : "unset invincible");
-    } else if (c == 'g') {
-	set_ghost(this->mouse, !this->mouse->ghost);
-	this->view->write_message(
-	    this->mouse->ghost ? "set ghost" : "unset ghost");
-    } else if (c == 'm') {
-	reveal_maze(this->maze);
-    } else if (c == 'n') {
-	(*this->view).destroy();
-	(*this->view) = create_view(5);
-	unreveal_maze(this->maze, this->mouse);
-    } else if (c == ' ') {
-	Move move = this->algorithm->move( this->maze, this->mouse );
-	move_mouse( this->mouse, this->maze,  move );
-    } else if (c == 'q' || c == 4) {
+
+    } 
+    // invincibility
+    else if (c == 'i') {
+	mouse->invincible = !mouse->invincible;
+	view->write_message(
+	    mouse->invincible ? "set invincible" : "unset invincible");
+    } 
+    // ghost mode
+    else if (c == 'g') {
+	mouse->ghost = !mouse->ghost;
+	view->write_message(
+	    mouse->ghost ? "set ghost" : "unset ghost");
+    } 
+    // cheat
+    else if (c == 'm') {
+	reveal_maze(maze);
+	view->write_message( "You Cheated" );
+    } 
+    // uncheat
+    else if (c == 'n') {
+	view->clear();
+	unreveal_maze(maze, mouse);
+	view->write_message( "You Still Cheated" );
+    } 
+    // mouse's choice
+    else if (c == ' ') {
+	Move move = algorithm->move( maze, mouse );
+	move_mouse( mouse, maze,  move );
+    } 
+    // quit
+    else if (c == 'q' || c == 4) {
 	return false;
     }
 
-    this->view->update(this->maze, this->mouse);
+    view->update(maze, mouse);
     return true;
 }
 

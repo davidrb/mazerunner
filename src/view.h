@@ -6,11 +6,11 @@
 
 typedef struct {
     void (*update)(Maze *, Mouse *);
-    void (*clear_maze)();
+    void (*clear)();
     void (*write_message)(char *);
     void (*destroy)();
 } View;
 
-View create_view( int level);
+View create_view();
 
 #endif

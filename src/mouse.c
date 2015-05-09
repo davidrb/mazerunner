@@ -20,6 +20,7 @@ Mouse create_mouse() {
 	.ghost = false,
 	.cells = 1,
 	.unique_cells = 1,
+	.won = false,
     };
 
     mouse.visited[mouse.x][mouse.y] = true;
@@ -77,6 +78,10 @@ void go_forward(Mouse *mouse, Maze *maze) {
 	mouse->visited[x][y] = true;
 	mouse->unique_cells++;
     }
+
+   if( (mouse->x == 7 || mouse->x == 8) && 
+       (mouse->y == 7 || mouse->y == 8 ))
+       mouse->won = true;
 }
 
 bool is_clear(Mouse *mouse, Maze *maze, Move move) {
@@ -95,14 +100,6 @@ void turn_right(Mouse *m) {
 
 void turn_left(Mouse *m) {
     m->dir = (m->dir + 3) % 4;
-}
-
-void set_invincible(Mouse *m, bool b) {
-    m->invincible = b;
-}
-
-void set_ghost(Mouse *m, bool b) {
-    m->ghost = b;
 }
 
 bool visited(Mouse *mouse, int x, int y) {
