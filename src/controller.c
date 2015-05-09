@@ -93,7 +93,7 @@ bool do_command(Controller* this, char c) {
     } 
     // quit
     else if (c == 'q' || c == 4) {
-	return false;
+	this->quit = true;
     }
 
     view->update(maze, mouse);
@@ -108,6 +108,7 @@ Controller create_controller(View *view, Maze* maze,
 	.maze = maze,
 	.mouse = mouse,
 	.algorithm = algorithm,
+	.quit = false,
     };
 
     view->update(maze, mouse);

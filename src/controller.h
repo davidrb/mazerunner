@@ -17,6 +17,8 @@ struct Controller {
     Mouse* mouse;
     View* view;
     Algorithm *algorithm;
+
+    bool quit;
 };
 
 #endif
