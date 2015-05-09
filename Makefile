@@ -20,6 +20,6 @@ submit: clean
 	tar -zcvf mazerunner.tar.gz *
 	mkdir submit
 	mv mazerunner.tar.gz submit
-	echo -e "unpack:\n\ttar -zxvf mazerunner.tar.gz\n\tmake\n\trm *.gz" \
+	echo -e "mazerunner:\n\ttar -zxvf mazerunner.tar.gz\n\tmake\n\trm *.gz" \
 		> submit/Makefile
 
