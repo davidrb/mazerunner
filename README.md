@@ -1,9 +1,13 @@
 #Mazerunner
 
-##Command Line Arguments
+##Usage
+
+###Command Line Arguments
 - **-m** loads a specified maze file.  Default is "maze.dat"
 - **-a** loads an algoithm.  Default is "tremaux.so"
-example: mazerunner -m maze.dat -a wall_hugger.so
+
+###Example
+example: mazerunner -m amazeing.dat -a wall_hugger.so
 
 ##Controls
 - **w** Move forward
