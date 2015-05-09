@@ -15,7 +15,7 @@
 - **i** Toggle invincibility
 - **space** Step algorithm
 
-##Custom Algorithm
+##Custom Algorithms
 To create a custom algorithm, compile a 
 shared library with a `void reset()`,
 and a `Move move(Maze *, Mouse *)` function.
