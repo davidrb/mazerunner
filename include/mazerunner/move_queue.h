@@ -1,3 +1,6 @@
+#ifndef MOVE_QUEUE
+#define MOVE_QUEUE
+
 #include <mazerunner/maze.h>
 #include <mazerunner/mouse.h>
 
@@ -14,7 +17,8 @@
 Move move_queue[QUEUE_SIZE];
 int num_moves = 0;
 
-static void push_move( Move dir) {
+static inline
+void push_move( Move dir) {
     assert( num_moves <= QUEUE_SIZE );
 
     move_queue[num_moves++] = dir;
@@ -22,7 +26,8 @@ static void push_move( Move dir) {
     assert(num_moves > 0);
 }
 
-static Move next_move() {
+static inline
+Move next_move() {
     assert(num_moves > 0);
 
     Move dir = move_queue[0];
@@ -35,7 +40,10 @@ static Move next_move() {
     return dir;
 }
 
-static bool moves_empty() {
+static inline
+bool moves_empty() {
     assert(num_moves >= 0);
     return !(num_moves > 0);
 }
+
+#endif
