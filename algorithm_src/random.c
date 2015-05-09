@@ -6,9 +6,6 @@
 #include <time.h>
 #include <stdlib.h>
 
-void init() {}
-void cleanup() {}
-    
 Move moves[3] = { Forward, Left, Right };
 
 Move move(Maze *maze, Mouse *mouse) {
@@ -38,4 +35,5 @@ Move move(Maze *maze, Mouse *mouse) {
 
 void reset() {
     srand(time(NULL));
+    while(!moves_empty()) next_move();
 }

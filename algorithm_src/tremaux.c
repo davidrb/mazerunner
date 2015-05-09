@@ -9,15 +9,8 @@ int marks[Cols][Rows] = {{0}};
 Move prev = Forward;
 
 int num_marks(int x, int y, Direction dir) {
-    switch(dir) {
-	case North: y++; break;
-	case South: y--; break;
-	case East: x++; break;
-	case West: x--; break;
-    }
-    x = (x < 0 ? 0 : (x >= Cols ? Cols-1 : x));
-    y = (y < 0 ? 0 : (y >= Rows ? Rows-1 : y));
-
+    offset(&x, &y, dir);
+    clamp_coords(&x, &y);
     return marks[x][y];
 }
 
@@ -75,15 +68,6 @@ Move move(Maze *maze, Mouse *mouse) {
     }
 
     prev = next;
-
-    FILE *file = fopen("tremaux.txt", "w");
-    for (int i = Rows-1; i >= 0; i--) {
-	for (int j = 0; j < Cols; j++)
-	    fprintf(file, " %d ", marks[j][i]);
-	fprintf(file, "\n");
-    }
-    fclose(file);
-
     return next;
 }
 
@@ -91,7 +75,6 @@ void reset() {
     for(int i = 0; i < Rows; i++) 
 	for(int j = 0; j < Cols; j++)
 	    marks[i][j] = 0;
-}
 
-void cleanup() {}
-void init() {}
+    while( !moves_empty()) next_move();
+}

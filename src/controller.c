@@ -13,20 +13,19 @@ bool do_command(Controller* this, char c) {
 	if (c == 'w')
 	    move_mouse(mouse, maze, Forward);
 	else if (c == 'a')
-	    turn_left(mouse);
-	else
-	    turn_right(mouse);
-
+	    move_mouse(mouse, maze, Left);
+	else if (c == 'd')
+	    move_mouse(mouse, maze, Right);
     } 
     // reset
     else if (c == 'R') {
 	*mouse = create_mouse();
-	(*view).destroy();
-	*view = create_view(5);
 	algorithm->reset();
+	view->clear();
     } 
     // right wall hug
     else if (c == 'r') {
+	algorithm->reset();
 	if (is_clear(mouse, maze, Right)) {
 	    move_mouse(mouse, maze, Right);
 	    move_mouse(mouse, maze, Forward);
@@ -40,6 +39,26 @@ bool do_command(Controller* this, char c) {
 	} else {
 	    move_mouse(mouse, maze, Right);
 	    move_mouse(mouse, maze, Right);
+	    move_mouse(mouse, maze, Forward);
+	}
+
+    } 
+    // left wall hug
+    else if (c == 'l') {
+	algorithm->reset();
+	if (is_clear(mouse, maze, Left)) {
+	    move_mouse(mouse, maze, Left);
+	    move_mouse(mouse, maze, Forward);
+	} 
+	else if (is_clear(mouse, maze, Forward)) {
+	    move_mouse(mouse, maze, Forward);
+	} 
+	else if (is_clear(mouse, maze, Right)) {
+	    move_mouse(mouse, maze, Right);
+	    move_mouse(mouse, maze, Forward);
+	} else {
+	    move_mouse(mouse, maze, Left);
+	    move_mouse(mouse, maze, Left);
 	    move_mouse(mouse, maze, Forward);
 	}
 

@@ -9,13 +9,12 @@
 Maze create_maze() {
     Maze maze = { {{false}}, {{false}} };
 
-    for (int c = 0; c < Cols; c++) {
+    // set the borders
+    for (int c = 0; c < Cols; c++)
 	maze.hwalls[0][c] = maze.hwalls[Rows][c] = true;
-    }
 
-    for(int r = 0; r < Rows; r++) {
+    for(int r = 0; r < Rows; r++)
 	maze.vwalls[r][0] = maze.vwalls[r][Cols] = true;
-    }
 
     return maze;
 }
@@ -48,7 +47,6 @@ void unreveal_maze(Maze *maze, Mouse *mouse ) {
 }
 
 bool get_wall(Maze *maze, int x, int y, Direction dir) {
-    assert(maze);
     assert(0 <= x && x < Cols);
     assert(0 <= y && y < Rows);
 

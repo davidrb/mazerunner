@@ -13,26 +13,25 @@ int dirs[4] = {
 static void update_mouse(Mouse *mouse) {
     int x = mouse->x, y = mouse->y;
 
-    if ( did_crash(mouse) ) {
+    if ( mouse->crashed ) {
 	show_mouse(CRASH, y, x);
 	write_message("You Crashed!", 0);
     } else {
 	if (mouse->won)
 	    write_message( "You Won!", 0 );
-	show_mouse(dirs[ getDir(mouse) ], y, x);
+	show_mouse(dirs[ mouse->dir ], y, x);
     }
 
    show_position( mouse->x, mouse->y ); 
-   show_cells( get_cells(mouse) );
-   show_unique_cells( get_unique_cells(mouse) );
+   show_cells( mouse->cells );
+   show_unique_cells( mouse->unique_cells );
 }
 
 static void clear() {
-    for (int x = 0; x < Cols; x++) {
-	for(int y = 0; y < Rows; y++) {
+    for (int x = 0; x < Cols; x++)
+	for(int y = 0; y < Rows; y++)
 	    put_walls( y, x, 0, 0, 0, 0 );
-	}
-    }
+
     clear_screen();
     init_display(5);
 }

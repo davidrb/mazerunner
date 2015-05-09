@@ -6,9 +6,6 @@
 
 #include <stdio.h>
 
-void init() {
-}
-
 Move move( Maze* maze, Mouse *mouse ) {
     if (moves_empty()) {
 	if (is_clear(mouse, maze, Right)) {
@@ -37,7 +34,4 @@ Move move( Maze* maze, Mouse *mouse ) {
 
 void reset() {
     while(!moves_empty()) next_move();
-}
-
-void cleanup() {
 }
