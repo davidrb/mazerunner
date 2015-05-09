@@ -1,6 +1,6 @@
 #Mazerunner
 
-##Command line arguments
+##Command Line Arguments
 - -m loads a specified maze file.  Default is "maze.dat"
 - -a loads an algoithm.  Default is "tremaux.so"
 
