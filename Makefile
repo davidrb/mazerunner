@@ -14,3 +14,12 @@ clean:
 	rm -f *.so
 	rm -f mazerunner
 	rm -rf .build/*
+	rm -rf submit/
+
+pack: clean
+	tar -zcvf mazerunner.tar.gz *
+	mkdir submit
+	mv mazerunner.tar.gz submit
+	echo -e "unpack:\n\ttar -zxvf mazerunner.tar.gz\n\tmake" \
+		> submit/Makefile
+

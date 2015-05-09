@@ -6,3 +6,4 @@ asdf
 *.so
 *.os
 *.sconsign.dblite
+submit/
