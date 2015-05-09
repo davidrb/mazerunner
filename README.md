@@ -7,7 +7,7 @@
 - **-a** loads an algoithm.  Default is "tremaux.so"
 
 ###Example
-example: mazerunner -m amazeing.dat -a wall_hugger.so
+mazerunner -m amazeing.dat -a wall_hugger.so
 
 ##Controls
 - **w** Move forward
